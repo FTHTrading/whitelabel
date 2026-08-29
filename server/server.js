@@ -5,6 +5,8 @@
 const express = require('express');
 const cors = require('cors');
 const auditRoutes = require('./routes/audit');
+const dealsRoutes = require('./routes/deals');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 app.use(cors());
@@ -12,7 +14,9 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 8905;
 
-// MOUNT AUDIT EXPORT ROUTES
+// MOUNT PROTECTED API ROUTES
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/deals', dealsRoutes);
 app.use('/api/v1/audit', auditRoutes);
 
 // HEALTH & CONTEXT ROUTE

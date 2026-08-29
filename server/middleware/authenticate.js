@@ -1,6 +1,8 @@
 // ==========================================================================
-// MIDDLEWARE: AUTHENTICATE USER SESSION / TOKEN
+// MIDDLEWARE: AUTHENTICATE USER SESSION VIA OIDC ADAPTER
 // ==========================================================================
+
+const { verifyOidcSession } = require('../services/identityProvider');
 
 function authenticate(req, res, next) {
   const authHeader = req.headers['authorization'];
@@ -11,22 +13,15 @@ function authenticate(req, res, next) {
   }
 
   const token = authHeader.split(' ')[1];
-  if (token === 'invalid_token' || token === 'expired_token') {
+  try {
+    const user = verifyOidcSession(token);
+    req.user = user;
+    next();
+  } catch (err) {
     return res.status(401).json({
-      error: 'Unauthorized: Session token has expired or is invalid.'
+      error: `Unauthorized: ${err.message}`
     });
   }
-
-  // Simulated authenticated user identity
-  req.user = {
-    userId: token.startsWith('user_') ? token : 'user_kevan_burns',
-    email: 'kevan@blackwoodcap.com',
-    delegatedTenantIds: ['tenant_blackwood_01'],
-    role: token.includes('auditor') ? 'auditor' : 'compliance_officer',
-    isCredentialActive: !token.includes('expired_cred')
-  };
-
-  next();
 }
 
 module.exports = { authenticate };

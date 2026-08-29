@@ -7,10 +7,10 @@ function authorizeAuditExport(req, res, next) {
     return res.status(401).json({ error: 'Unauthorized.' });
   }
 
-  // 1. Verify that user credential has not expired
-  if (!req.user.isCredentialActive) {
+  // 1. Verify that user account is active
+  if (!req.user.isActive) {
     return res.status(403).json({
-      error: 'Forbidden: Signer / officer credential has expired. Re-verification required.'
+      error: 'Forbidden: User account is inactive or suspended.'
     });
   }
 

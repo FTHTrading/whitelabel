@@ -19,20 +19,18 @@ function runAuditExportAuthorizationTests() {
   authenticate(mockReqUnauth, mockRes, () => {});
   assert.strictEqual(responseCode, 401, 'Unauthenticated request must return 401 Unauthorized.');
 
-  // Test 2: Expired signer credential receives 403
+  // Test 2: Expired token receives 401
   const mockReqExpired = {
-    headers: { authorization: 'Bearer user_expired_cred' },
+    headers: { authorization: 'Bearer expired_token' },
     body: { resourceType: 'deal', resourceId: 'deal_savannah_07' }
   };
 
-  authenticate(mockReqExpired, mockRes, () => {
-    authorizeAuditExport(mockReqExpired, mockRes, () => {});
-  });
-  assert.strictEqual(responseCode, 403, 'Expired credential must return 403 Forbidden.');
+  authenticate(mockReqExpired, mockRes, () => {});
+  assert.strictEqual(responseCode, 401, 'Expired token must return 401 Unauthorized.');
 
   // Test 3: Valid authenticated signer proceeds successfully
   const mockReqValid = {
-    headers: { authorization: 'Bearer user_valid_signer' },
+    headers: { authorization: 'Bearer user_kevan_burns' },
     body: { resourceType: 'deal', resourceId: 'deal_savannah_07' }
   };
   let authorized = false;
