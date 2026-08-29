@@ -1,5 +1,5 @@
 // ==========================================================================
-// UNYKORN ENTERPRISE FABRIC - MASTER TEST RUNNER (17 TEST SUITES)
+// UNYKORN ENTERPRISE FABRIC - MASTER TEST RUNNER (21 TEST SUITES)
 // ==========================================================================
 
 const { runTenantIsolationTests } = require('./tenantIsolation.test');
@@ -19,9 +19,13 @@ const { runWorkflowStateMachineTests } = require('./workflowStateMachine.test');
 const { runAntiSelfApprovalTests } = require('./antiSelfApproval.test');
 const { runApprovalTargetHashInvalidationTests } = require('./approvalTargetHashInvalidation.test');
 const { runCredentialRevalidationAtSigningTests } = require('./credentialRevalidationAtSigning.test');
+const { runOutboxDispatcherTests } = require('./outboxDispatcher.test');
+const { runOutboxConcurrencyIdempotencyTests } = require('./outboxConcurrencyIdempotency.test');
+const { runOutboxRevalidationFailureTests } = require('./outboxRevalidationFailure.test');
+const { runOutboxReconciliationStateTests } = require('./outboxReconciliationState.test');
 
 console.log('===============================================================');
-console.log('UNYKORN ENTERPRISE FABRIC - MASTER WORKFLOW & RLS TEST SUITE');
+console.log('UNYKORN ENTERPRISE FABRIC - MASTER OUTBOX & WORKFLOW TEST SUITE');
 console.log('===============================================================');
 
 async function runAll() {
@@ -43,8 +47,12 @@ async function runAll() {
     runAntiSelfApprovalTests();
     runApprovalTargetHashInvalidationTests();
     runCredentialRevalidationAtSigningTests();
+    await runOutboxDispatcherTests();
+    runOutboxConcurrencyIdempotencyTests();
+    await runOutboxRevalidationFailureTests();
+    runOutboxReconciliationStateTests();
     console.log('===============================================================');
-    console.log('ALL 17 SECURITY, WORKFLOW, RLS & HASH CHAIN TESTS PASSED (17/17)');
+    console.log('ALL 21 SECURITY, OUTBOX, RLS & DISPATCHER TESTS PASSED (21/21)');
     console.log('===============================================================');
     process.exit(0);
   } catch (error) {
