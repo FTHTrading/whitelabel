@@ -7,6 +7,7 @@ const cors = require('cors');
 const auditRoutes = require('./routes/audit');
 const dealsRoutes = require('./routes/deals');
 const authRoutes = require('./routes/auth');
+const workflowRoutes = require('./routes/workflows');
 
 const app = express();
 app.use(cors());
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 8905;
 // MOUNT PROTECTED API ROUTES
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/deals', dealsRoutes);
+app.use('/api/v1/workflows', workflowRoutes);
 app.use('/api/v1/audit', auditRoutes);
 
 // HEALTH & CONTEXT ROUTE
