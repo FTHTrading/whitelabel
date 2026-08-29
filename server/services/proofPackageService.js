@@ -3,22 +3,29 @@
 // ==========================================================================
 
 const { verifyLedgerEvents } = require('./ledgerVerifier');
-const { recordExportAccess } = require('./exportAuditService');
+const { recordExportAccess, EXPORT_EVENT_TYPES } = require('./exportAuditService');
 
 function generateProofPackage({ tenant, user, resourceType, resourceId, events, evidenceMetadata }) {
+  const packageId = `UEF-PRF-${new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14)}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+
   // 1. Verify ledger integrity before exporting
   const verification = verifyLedgerEvents(events);
 
   // 2. Record export access event
-  const exportLog = recordExportAccess(
-    tenant.tenantId,
-    user.userId,
+  const exportLog = recordExportAccess({
+    tenantId: tenant.tenantId,
+    actorUserId: user.userId,
+    resourceType,
     resourceId,
-    verification.verified ? 'success' : 'verification_failed'
-  );
+    exportEventType: verification.verified ? EXPORT_EVENT_TYPES.GENERATED : EXPORT_EVENT_TYPES.FAILED_VERIFICATION,
+    packageId,
+    decision: verification.verified ? 'allowed' : 'failed_verification',
+    reasonCode: verification.verified ? 'AUTHORIZED_VERIFIED' : 'LEDGER_INTEGRITY_MISMATCH'
+  });
 
   return {
     packageVersion: '1.0',
+    packageId,
     environment: tenant.environment || 'sandbox',
     status: verification.verified ? 'generated_and_verified' : 'verification_failed',
     exportEventId: exportLog.exportEventId,

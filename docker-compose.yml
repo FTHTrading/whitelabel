@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # =========================================================================
+  # UNYKORN ENTERPRISE FABRIC - LOCAL DEVELOPMENT & TESTING DATABASE ONLY
+  # (NON-PRODUCTION EPHEMERAL POSTGRESQL INSTANCE WITH ROW-LEVEL SECURITY)
+  # =========================================================================
+  postgres_sandbox:
+    image: postgres:16-alpine
+    container_name: unykorn_fabric_postgres_dev
+    restart: "no"
+    environment:
+      POSTGRES_DB: fabric_dev
+      POSTGRES_USER: fabric_app_user
+      POSTGRES_PASSWORD: dev_insecure_local_password_only
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./server/db/migrations/001_initial_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./server/db/migrations/002_audit_export_log.sql:/docker-entrypoint-initdb.d/02_audit_export.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fabric_app_user -d fabric_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

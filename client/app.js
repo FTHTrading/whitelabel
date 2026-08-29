@@ -870,9 +870,9 @@ async function exportEnterpriseReport() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `SERVER_AUDIT_PACKAGE_${currentTenantKey.toUpperCase()}.json`;
+      a.download = `unykorn-proof-package_${data.packageId || 'sandbox'}.json`;
       a.click();
-      alert(`Server-Generated Sandbox Proof Package Downloaded!\n\n• Export Event ID: ${data.exportEventId}\n• Ledger Verification: ${data.verification.ledgerVerification}\n• Environment: ${data.environment.toUpperCase()}`);
+      alert(`Server-Generated Sandbox Proof Package Downloaded!\n\n• Package ID: ${data.packageId}\n• Ledger Verification: ${data.verification.ledgerVerification}\n• Scope: ${data.verification.scope}`);
       return;
     }
   } catch (err) {
@@ -893,7 +893,7 @@ async function exportEnterpriseReport() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `OFFLINE_DEMO_RECEIPT_${currentTenantKey.toUpperCase()}.json`;
+  a.download = `offline-demo-receipt_${Date.now()}.json`;
   a.click();
   alert("Notice: Server unreachable. Downloaded [Offline Demonstration Receipt — Not Server Verified].");
 }
