@@ -1,0 +1,13 @@
+{
+  "name": "unykorn-enterprise-fabric-api",
+  "version": "3.8.0",
+  "description": "UnyKorn Enterprise Fabric - Multi-Tenant Institutional Control Plane API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}

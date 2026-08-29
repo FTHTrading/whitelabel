@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UnyKorn Enterprise Fabric // Institutional Operating Platform</title>
+  <meta name="description" content="Multi-Tenant Institutional Operating Platform for Real-World Assets, Private Credit, Digital Securities, Custody Workflows, and Multi-Rail Settlement.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-default">
+
+  <!-- PERSISTENT ENVIRONMENT NOTICE BANNER -->
+  <div class="env-banner">
+    <div class="env-banner-content">
+      <span class="env-badge" id="globalEnvBadge">DEMONSTRATION ENVIRONMENT</span>
+      <span class="env-text" id="globalEnvText">Sample tenant data & simulated execution — no live assets, custodial wallets, settlement instructions, investor records, or transactions.</span>
+      <div class="env-selector">
+        <label>Environment Mode:</label>
+        <select id="envSelect" onchange="switchEnvironment(this.value)">
+          <option value="demo" selected>Demo (Illustrative Data)</option>
+          <option value="sandbox">Sandbox (Testnet & Mock APIs)</option>
+          <option value="pilot">Pilot (Controlled Gated Tenant)</option>
+          <option value="production">Production (Regulated / Audited Only)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP BAR -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <div class="brand-badge">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-title">UNYKORN <span class="brand-highlight">ENTERPRISE FABRIC</span></span>
+        <span class="brand-sub">INSTITUTIONAL OPERATING SYSTEM // V3.8</span>
+      </div>
+    </div>
+
+    <!-- TENANT SWITCHER -->
+    <div class="tenant-selector-container">
+      <span class="tenant-label">TENANT SCENARIO:</span>
+      <div class="tenant-dropdown-wrapper">
+        <select id="tenantSelect" class="tenant-select" onchange="switchTenant(this.value)">
+          <option value="dignity">Dignity Gold Reserves Inc. [Demo: Commodity Reserve OS]</option>
+          <option value="blackwood">Blackwood Capital & Debt Fund [Demo: Private Credit & LDX]</option>
+          <option value="aeterna">Aeterna Capital Partners [Demo: Family Office & Securities]</option>
+          <option value="gaa">Global Art Authority [Demo: Fine Art RWA & Provenance]</option>
+          <option value="georgia">Georgia Edge SPV [Demo: Construction Draw Desk]</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- GLOBAL STATUS & ACTIONS -->
+    <div class="nav-right">
+      <div class="integration-pills">
+        <div class="pill pill-bitgo" title="Custody & MPC Signing Boundary (Simulated/Sandbox)">
+          <span class="pill-dot green"></span> BitGo Enterprise: <strong id="bitgoStatus">SANDBOX MPC</strong>
+        </div>
+        <div class="pill pill-flashrouter" title="Multi-Chain Liquidity & Execution Router">
+          <span class="pill-dot blue"></span> FlashRouter: <strong id="routerStatus">4 RAILS MOCKED</strong>
+        </div>
+      </div>
+
+      <div class="user-role-badge">
+        <span class="user-avatar" id="userAvatar">CO</span>
+        <div class="user-details">
+          <span class="user-name" id="userName">Kevan Burns</span>
+          <span class="user-role" id="userRoleTitle">Compliance Officer / Signer</span>
+        </div>
+      </div>
+
+      <button class="btn-action primary" onclick="startE2EWorkflowModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <span>Run E2E Deal Flow</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <div class="app-layout">
+    
+    <!-- SIDEBAR NAV -->
+    <aside class="sidebar">
+      <div class="sidebar-section-title">CONTROL PLANE MODULES</div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="overview" onclick="switchTab('overview')">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Enterprise Overview</span>
+          <span class="badge count-badge" id="overviewAlertCount">2</span>
+        </button>
+
+        <button class="nav-item" data-tab="credentials" onclick="switchTab('credentials')">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>Organizations & Credentials</span>
+        </button>
+
+        <button class="nav-item" data-tab="workspace" onclick="switchTab('workspace')">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          <span>Asset & Deal Workspace</span>
+          <span class="badge active-deals-badge" id="activeDealsCount">2</span>
+        </button>
+
+        <button class="nav-item" data-tab="approvals" onclick="switchTab('approvals')">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+          <span>Approval & Quorum Center</span>
+          <span class="badge pulse-badge" id="pendingApprovalsCount">2</span>
+        </button>
+
+        <button class="nav-item" data-tab="custody" onclick="switchTab('custody')">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          <span>Custody & Settlement Console</span>
+        </button>
+
+        <button class="nav-item" data-tab="audit" onclick="switchTab('audit')">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>Audit & Proof Vault</span>
+        </button>
+
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">FABRIC CONFIGURATION</div>
+
+        <button class="nav-item" data-tab="whitelabel" onclick="switchTab('whitelabel')">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span>White-Label & Domain Engine</span>
+        </button>
+      </nav>
+
+      <!-- TENANT SUMMARY CARD -->
+      <div class="tenant-identity-card" id="tenantCard">
+        <div class="tenant-card-header">
+          <span class="tenant-tag" id="tenantDomainTag">dignitygold.unykorn.ai</span>
+          <span class="badge verified-badge" id="tenantStatusBadge">SAMPLE TENANT</span>
+        </div>
+        <div class="tenant-card-name" id="tenantName">Dignity Gold Reserves Inc.</div>
+        <div class="tenant-card-meta">
+          <span>LEI: <strong id="tenantLei">984500E344761549B (Demo)</strong></span>
+          <span>Custody Boundary: <strong id="tenantCustody">BitGo Trust Sandbox</strong></span>
+        </div>
+        <div class="tenant-card-stat">
+          <span class="stat-label">Illustrative AUC:</span>
+          <span class="stat-value" id="tenantAuc">$3,000,000,000</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT VIEW AREA -->
+    <main class="main-content">
+
+      <!-- SCENARIO NOTICE BANNER -->
+      <div class="scenario-notice" id="scenarioNotice">
+        <span class="scenario-icon">ℹ️</span>
+        <div class="scenario-text">
+          <strong id="scenarioNoticeTitle">Demo Scenario: Commodity Reserve Issuer</strong>
+          <p id="scenarioNoticeBody">Fictionalized data for platform demonstration only. Not a statement of live reserves, custody, issuance, partnership, regulatory status, or transaction activity.</p>
+        </div>
+      </div>
+
+      <!-- SCREEN 1: ENTERPRISE OVERVIEW -->
+      <section id="tab-overview" class="tab-pane active">
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">Enterprise Command Center</h1>
+            <p class="view-desc">Unified control plane aggregating cross-module assets, active deals, custody policies, and settlement queues.</p>
+          </div>
+          <div class="view-actions">
+            <button class="btn-secondary" onclick="exportEnterpriseReport()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Export Audit Package</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- METRIC CARDS -->
+        <div class="grid-metrics">
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">TOTAL ASSETS UNDER CREDENTIAL (AUC)</span>
+              <span class="metric-icon">💰</span>
+            </div>
+            <div class="metric-value" id="metricAuc">$4,820,000,000</div>
+            <div class="metric-footnote positive">
+              <span>↑ 155 Demo Assets</span> &bull; <span>Reserve Hashed</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">ACTIVE DEAL & LOAN VOLUME</span>
+              <span class="metric-icon">📊</span>
+            </div>
+            <div class="metric-value" id="metricDealVol">$184,500,000</div>
+            <div class="metric-footnote">
+              <span id="metricDealCount">2 Active Workflows</span> &bull; <span>LDX & FlashRouter</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">ORGANIZATION & INVESTOR CREDENTIALS</span>
+              <span class="metric-icon">🛡️</span>
+            </div>
+            <div class="metric-value" id="metricCredentials">1,240 Active</div>
+            <div class="metric-footnote positive">
+              <span>Time-Bound & Bound</span> &bull; <span>KYC/Accredited Valid</span>
+            </div>
+          </div>
+
+          <div class="metric-card alert-card">
+            <div class="metric-header">
+              <span class="metric-title">PENDING APPROVAL QUORUM</span>
+              <span class="metric-icon">⏳</span>
+            </div>
+            <div class="metric-value text-amber" id="metricPendingCount">2 Pending</div>
+            <div class="metric-footnote">
+              <span>Zero Single-Key Execution</span> &bull; <span>Policy Gated</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TWO COLUMN LAYOUT: WORKFLOW QUEUE & MODULE HEALTH -->
+        <div class="grid-2col">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Live Transaction & Workflow Queue</h3>
+              <span class="badge info-badge">Policy Gated</span>
+            </div>
+            <div class="panel-body table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Intent ID</th>
+                    <th>Module / Type</th>
+                    <th>Asset / Scope</th>
+                    <th>Amount / Units</th>
+                    <th>Policy State</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="overviewQueueBody">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Enterprise Module Matrix (Active Capabilities)</h3>
+              <span class="badge success-badge">All Healthy</span>
+            </div>
+            <div class="panel-body">
+              <div class="module-status-list" id="moduleStatusList">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 2: ORGANIZATIONS & CREDENTIALS -->
+      <section id="tab-credentials" class="tab-pane">
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">Organizations & Credential Graph</h1>
+            <p class="view-desc">Verifiable identity and authority model governing legal entities, authorized signers, investor KYC/AML, wallets, and partners.</p>
+          </div>
+          <div class="view-actions">
+            <button class="btn-action primary" onclick="openActionModal('issue_credential')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span>+ Issue Credential</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="credential-tabs-nav">
+          <button class="sub-tab active" onclick="filterCredentials('all')">All Credentials (Demo)</button>
+          <button class="sub-tab" onclick="filterCredentials('org')">Legal Entities & SPVs</button>
+          <button class="sub-tab" onclick="filterCredentials('signer')">Authorized Signers & Officers</button>
+          <button class="sub-tab" onclick="filterCredentials('investor')">Verified Investors & KYC</button>
+          <button class="sub-tab" onclick="filterCredentials('partner')">Regulated Partners</button>
+          <button class="sub-tab" onclick="filterCredentials('wallet')">Approved Custody Wallets</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-body table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Credential ID</th>
+                  <th>Class / Type</th>
+                  <th>Subject Entity / Name</th>
+                  <th>Issuing Authority</th>
+                  <th>Claim Topics / Scope</th>
+                  <th>Expiry / Term</th>
+                  <th>Lifecycle Status</th>
+                  <th>Audit Proof Hash</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="credentialsTableBody">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 3: ASSET & DEAL WORKSPACE -->
+      <section id="tab-workspace" class="tab-pane">
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">Asset & Deal Workspace</h1>
+            <p class="view-desc">Intake, underwriting rooms, collateral evidence, draw milestones, and private credit syndication desks.</p>
+          </div>
+          <div class="view-actions">
+            <button class="btn-action primary" onclick="openActionModal('new_deal')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+              <span>+ Create Deal Room</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="deals-grid" id="dealsGrid">
+          <!-- Injected via JS -->
+        </div>
+      </section>
+
+      <!-- SCREEN 4: APPROVAL & QUORUM CENTER -->
+      <section id="tab-approvals" class="tab-pane">
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">Policy & Approval Center</h1>
+            <p class="view-desc">Enforces multi-party quorum, limit gates, and BitGo MPC co-sign requirements before value or state changes.</p>
+          </div>
+          <div class="view-actions">
+            <span class="badge warning-badge">Rule: No Single-Key Execution Allowed</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Pending Approval Quorum Required (Action Items)</h3>
+          </div>
+          <div class="panel-body" id="approvalsContainer">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <div class="panel mt-4">
+          <div class="panel-header">
+            <h3>Active Automated Policy Enforcement Matrix</h3>
+          </div>
+          <div class="panel-body table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Action Trigger</th>
+                  <th>Threshold Condition</th>
+                  <th>Required Quorum & Approvers</th>
+                  <th>Custody / Boundary Gate</th>
+                  <th>Circuit-Breaker Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>token_mint / issuance</code></td>
+                  <td>Amount &gt; $250,000 USD Equiv.</td>
+                  <td>1 Issuer Admin + 1 Compliance Officer + 1 Custody Officer</td>
+                  <td>BitGo MPC Policy Approval + Reserve Hash Sync</td>
+                  <td><span class="badge success-badge">ARMED (0 TRIP)</span></td>
+                </tr>
+                <tr>
+                  <td><code>construction_draw</code></td>
+                  <td>Amount &gt; $500,000 USD</td>
+                  <td>1 Lead Architect + 1 Title Agent + 1 Lender Officer</td>
+                  <td>Legal-X Title Attestation + Escrow Release Key</td>
+                  <td><span class="badge success-badge">ARMED (0 TRIP)</span></td>
+                </tr>
+                <tr>
+                  <td><code>treasury_transfer</code></td>
+                  <td>Any Destination Address</td>
+                  <td>Must exist in <strong>Approved Destination Allowlist</strong></td>
+                  <td>BitGo Multi-Sig MPC Policy Rule</td>
+                  <td><span class="badge success-badge">ARMED (0 TRIP)</span></td>
+                </tr>
+                <tr>
+                  <td><code>contract_deploy</code></td>
+                  <td>Mainnet / Production Rails</td>
+                  <td>Security Officer + Audited Template SHA-256 Hash Match</td>
+                  <td>UnyKorn Studio Release Channel Gate</td>
+                  <td><span class="badge success-badge">ARMED (0 TRIP)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 5: CUSTODY & SETTLEMENT CONSOLE -->
+      <section id="tab-custody" class="tab-pane">
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">Custody & Settlement Console</h1>
+            <p class="view-desc">BitGo Enterprise MPC custody boundaries, multi-rail routing via FlashRouter, and verified destination allowlists.</p>
+          </div>
+          <div class="view-actions">
+            <button class="btn-secondary" onclick="triggerRailSync()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+              <span>Sync All 4 Rails</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid-2col">
+          <!-- BITGO CUSTODY VAULTS -->
+          <div class="panel">
+            <div class="panel-header">
+              <h3>BitGo Enterprise MPC Vault Registry (Simulated Sandbox)</h3>
+              <span class="badge info-badge">Zero Private Keys in DB</span>
+            </div>
+            <div class="panel-body">
+              <div class="vault-cards-list" id="vaultCardsList">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- FLASHROUTER RAIL STATUS -->
+          <div class="panel">
+            <div class="panel-header">
+              <h3>FlashRouter Multi-Rail Liquidity & Settlement Status</h3>
+              <span class="badge success-badge">FlashRouter Active</span>
+            </div>
+            <div class="panel-body">
+              <div class="rails-status-list" id="railsStatusList">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESTINATION ALLOWLIST -->
+        <div class="panel mt-4">
+          <div class="panel-header">
+            <h3>Governed Destination Address Allowlist (Strict Whitelist Policy)</h3>
+            <button class="btn-secondary btn-sm" onclick="openActionModal('add_allowlist')">+ Add Allowlist Entry</button>
+          </div>
+          <div class="panel-body table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Recipient / Entity</th>
+                  <th>Rail / Network</th>
+                  <th>Destination Address</th>
+                  <th>Credential Binding</th>
+                  <th>Max Daily Limit</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="allowlistBody">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 6: AUDIT & PROOF VAULT -->
+      <section id="tab-audit" class="tab-pane">
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">Audit & Proof Vault</h1>
+            <p class="view-desc">Cryptographically anchored event timeline, Merkle receipts, reserve proofs, and one-click regulator packages.</p>
+          </div>
+          <div class="view-actions">
+            <button class="btn-action primary" onclick="openProofVerifier()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Cryptographic Proof Verifier</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Immutable Event Ledger & Receipt Chains (Hash-Chain $H_n$)</h3>
+            <span class="badge info-badge">SHA-256 Merkle Chained</span>
+          </div>
+          <div class="panel-body">
+            <div class="audit-timeline" id="auditTimeline">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 7: WHITE-LABEL & DOMAIN ENGINE -->
+      <section id="tab-whitelabel" class="tab-pane">
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">White-Label & Domain Engine</h1>
+            <p class="view-desc">Configure client brand tokens, custom hostnames, active module entitlements, and automated Stripe billing splits.</p>
+          </div>
+          <div class="view-actions">
+            <button class="btn-action primary" onclick="saveWhiteLabelConfig()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+              <span>Save Tenant Settings</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid-2col">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Brand & Look Customization</h3>
+            </div>
+            <div class="panel-body">
+              <div class="form-group">
+                <label>Tenant Display Name</label>
+                <input type="text" id="wlName" class="form-input" value="Dignity Gold Reserves Inc.">
+              </div>
+              <div class="form-group">
+                <label>Primary Custom Domain (Cloudflare SaaS CNAME)</label>
+                <input type="text" id="wlDomain" class="form-input" value="portal.dignitygold.com">
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>Primary Brand Color</label>
+                  <div class="color-picker-row">
+                    <input type="color" id="wlPrimaryColor" value="#E5A93C" onchange="updateLivePreview()">
+                    <input type="text" id="wlPrimaryColorText" class="form-input" value="#E5A93C">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Accent Glow Color</label>
+                  <div class="color-picker-row">
+                    <input type="color" id="wlAccentColor" value="#38BDF8" onchange="updateLivePreview()">
+                    <input type="text" id="wlAccentColorText" class="form-input" value="#38BDF8">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Custom Legal Disclaimer (Footer)</label>
+                <textarea id="wlDisclaimer" class="form-textarea" rows="3">Technology and software infrastructure powered by UnyKorn LLC. All custody, reserve administration, and redemption services performed by authorized partners.</textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Module Activation & Commercial Setup</h3>
+            </div>
+            <div class="panel-body">
+              <div class="module-toggle-list">
+                <label class="toggle-item">
+                  <input type="checkbox" id="mod_org" checked>
+                  <span class="toggle-text">
+                    <strong>Organization & Credential Hub</strong>
+                    <small>Entity verification, roles, investor KYC and wallet allowlisting</small>
+                  </span>
+                </label>
+
+                <label class="toggle-item">
+                  <input type="checkbox" id="mod_lending" checked>
+                  <span class="toggle-text">
+                    <strong>Lending & Credit Desk (LDX + XRPL Loans)</strong>
+                    <small>Underwriting pipeline, loan deal rooms, and borrower servicing</small>
+                  </span>
+                </label>
+
+                <label class="toggle-item">
+                  <input type="checkbox" id="mod_custody" checked>
+                  <span class="toggle-text">
+                    <strong>Custody & Settlement Console (BitGo Enterprise)</strong>
+                    <small>Multi-sig MPC boundary, FlashRouter execution, and transaction limits</small>
+                  </span>
+                </label>
+
+                <label class="toggle-item">
+                  <input type="checkbox" id="mod_studio" checked>
+                  <span class="toggle-text">
+                    <strong>Smart Contract Control Room (UnyKorn Studio)</strong>
+                    <small>Audited template deployment, simulation receipts, and lifecycle controls</small>
+                  </span>
+                </label>
+
+                <label class="toggle-item">
+                  <input type="checkbox" id="mod_provenance" checked>
+                  <span class="toggle-text">
+                    <strong>Proof & Reserve Intelligence (Provenance Vault)</strong>
+                    <small>Reserve bar lists, appraisal certificates, and Merkle attestations</small>
+                  </span>
+                </label>
+              </div>
+
+              <div class="billing-split-box mt-4">
+                <h4>Commercial SaaS Retainer Model</h4>
+                <div class="split-row">
+                  <span>Target Plan:</span>
+                  <strong>Private Credit Operations Desk</strong>
+                </div>
+                <div class="split-row">
+                  <span>Upfront Implementation Setup:</span>
+                  <strong>$17,500.00</strong>
+                </div>
+                <div class="split-row">
+                  <span>Monthly Platform Retainer:</span>
+                  <strong>$1,499.00 / month</strong>
+                </div>
+                <div class="split-row">
+                  <span>Usage & Workflow Event Metering:</span>
+                  <span>Per active deal room & evidence export</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- E2E VERIFIED DEAL FLOW SIMULATOR MODAL -->
+  <div id="e2eModal" class="modal-overlay">
+    <div class="modal-card proof-modal-card">
+      <div class="modal-header">
+        <h3>End-to-End "Verified Deal" Operational Pipeline Simulator</h3>
+        <button class="modal-close" onclick="closeE2EModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+          Step through the complete institutional governance lifecycle: Tenant & Organization creation &rarr; Officer Authority Credentialing &rarr; Deal Intake &rarr; Evidence Hashing &rarr; Multi-Party Quorum &rarr; BitGo MPC Handoff &rarr; Tamper-Evident Merkle Hash Chain.
+        </p>
+
+        <div class="e2e-stepper" id="e2eStepper">
+          <div class="e2e-step active" id="e2eStep1">
+            <div class="step-num">1</div>
+            <div class="step-title">Organization & Signer Credential</div>
+          </div>
+          <div class="e2e-step" id="e2eStep2">
+            <div class="step-num">2</div>
+            <div class="step-title">Deal Room & Evidence Hashing</div>
+          </div>
+          <div class="e2e-step" id="e2eStep3">
+            <div class="step-num">3</div>
+            <div class="step-title">Policy Quorum Consensus</div>
+          </div>
+          <div class="e2e-step" id="e2eStep4">
+            <div class="step-num">4</div>
+            <div class="step-title">BitGo MPC Execution & Audit Proof</div>
+          </div>
+        </div>
+
+        <div class="e2e-step-content" id="e2eStepContent">
+          <!-- Injected dynamically via JS -->
+        </div>
+      </div>
+      <div class="modal-footer" id="e2eFooter">
+        <!-- Buttons Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION MODAL -->
+  <div id="actionModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Modal Title</h3>
+        <button class="modal-close" onclick="closeActionModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Dynamic Form Content -->
+      </div>
+      <div class="modal-footer" id="modalFooter">
+        <button class="btn-secondary" onclick="closeActionModal()">Cancel</button>
+        <button class="btn-action primary" id="modalConfirmBtn">Execute</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROOF VERIFIER MODAL -->
+  <div id="proofModal" class="modal-overlay">
+    <div class="modal-card proof-modal-card">
+      <div class="modal-header">
+        <h3>Cryptographic Proof & Merkle Receipt Verifier</h3>
+        <button class="modal-close" onclick="closeProofModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Enter Transaction Hash, Claim Hash, or Merkle Root ($H_n$):</label>
+          <input type="text" id="verifyInputHash" class="form-input font-mono" placeholder="0x4e574939d460d284b5d990646d4aeaef2d49fa13...">
+        </div>
+        <button class="btn-action primary" onclick="runCryptographicVerification()">Verify Against Immutable Event Ledger</button>
+        
+        <div id="verificationResult" class="verification-result-box" style="display:none;">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
