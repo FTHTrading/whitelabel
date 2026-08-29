@@ -2,14 +2,28 @@
 Version 1.0, August 2026
 Copyright (c) 2026 UnyKorn LLC & FTH Trading. All Rights Reserved.
 
-## 1. Grant of Evaluation & Architectural Reference License
-Subject to the terms of this License, UnyKorn LLC grants you a non-exclusive, non-transferable, royalty-free license to:
-1. Inspect, review, and evaluate the source code, database specifications, and documentation for architectural analysis and reference.
-2. Compile and run the demonstration prototype locally for testing and evaluation purposes.
+## 1. Definitions
+* **"Licensor"** means UnyKorn LLC (Wyoming, USA) and FTH Trading.
+* **"Software"** means the source code, database specifications, documentation, and user interfaces contained in this repository.
+* **"Evaluation"** means non-production inspection, testing, local demonstration, security review, and architectural assessment.
 
-## 2. Commercial Restrictions & Reservations
-1. **No Production Commercial SaaS / White-Label Hosting**: You may not host, license, sub-license, distribute, or provide commercial SaaS, PaaS, multi-tenant asset tokenization, or private credit operating services to third parties using this software without a separate commercial agreement with UnyKorn LLC.
-2. **Proprietary Governance & Trademarks**: The names "UnyKorn", "UnyKorn Enterprise Fabric", "Legal-X", "LDX Capital", "FlashRouter", and associated logos are proprietary trademarks of UnyKorn LLC and FTH Trading.
-3. **No Financial Warranty**: The software is provided "as-is", without warranty of any kind. It is not licensed as regulated financial, custody, broker-dealer, lending, escrow, or legal software.
+## 2. Grant of Evaluation Rights
+Subject to the terms and restrictions of this License, the Licensor hereby grants you a worldwide, royalty-free, non-exclusive, non-transferable license to:
+1. View, inspect, download, and compile the Software solely for internal Evaluation and architectural assessment.
+2. Execute the Software locally in a non-production development or demonstration environment.
 
-For commercial licensing and production deployment access, contact: `licensing@unykorn.ai`.
+## 3. Strict Commercial & Production Restrictions
+You may **NOT**, without prior express written authorization from UnyKorn LLC:
+1. Deploy, run, or use the Software in a production environment or in connection with real commercial financial transactions.
+2. Provide, host, distribute, or license the Software as a managed service, Software-as-a-Service (SaaS), Platform-as-a-Service (PaaS), multi-tenant application, or white-label solution to third parties.
+3. Sub-license, sell, lease, rent, or commercially distribute the Software or any derivative work based upon it.
+4. Remove, obscure, or alter any copyright notices, trademark identifiers, or disclaimers contained in the Software.
+
+## 4. Trademarks & Brand Assets
+This License does not grant any right or license to use the trademarks, service marks, trade names, or logos of the Licensor, including but not limited to "UnyKorn", "UnyKorn Enterprise Fabric", "Legal-X", "LDX Capital", "FlashRouter", or "Provenance Vault".
+
+## 5. No Warranty & Limitation of Liability
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## 6. Commercial Licensing Inquiries
+For production licenses, custom enterprise deployments, or partner integrations, contact: `licensing@unykorn.ai`.

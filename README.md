@@ -19,6 +19,8 @@
 >
 > All named entities, counterparties, assets, wallet addresses, and transaction values displayed in demonstration environments are illustrative fixtures and do not represent live production custody or financial activity unless expressly verified.
 
+> **Evaluation License Notice**: This repository is source-available for evaluation only. No right is granted to host, sublicense, commercialize, white-label, distribute a derivative platform, or use the software in production without a separate written agreement from the applicable rights holder.
+
 ---
 
 ## 📑 Table of Contents
@@ -38,7 +40,7 @@
 
 ## 1. Executive System Architecture
 
-UnyKorn Enterprise Fabric unifies fragmented web properties into a single governed institutional operating system:
+UnyKorn Enterprise Fabric unifies fragmented web properties into a single governed institutional operating system designed for institutional workflow requirements (pre-production reference):
 
 ```mermaid
 flowchart TD
@@ -164,15 +166,13 @@ classDiagram
 
 ## 6. Automated Security & Isolation Tests
 
-The platform includes automated tests verifying the following core guarantees:
+The platform test suite verifies the following logical assertions in defined unit and integration test cases:
 
-| Security Property | Test Location | Status |
+| Security Property | Test Location | Test Result |
 | :--- | :--- | :---: |
-| **Tenant Isolation (RLS)** | `server/tests/tenantIsolation.test.js` | 🟢 PASS |
-| **Anti-Self-Approval** | `server/tests/approvalIntegrity.test.js` | 🟢 PASS |
-| **Credential Expiry & Scope** | `server/tests/credentialScope.test.js` | 🟢 PASS |
-| **Approval Hash Invalidation**| `server/tests/approvalIntegrity.test.js` | 🟢 PASS |
-| **Audit Ledger Hash Chaining**| `server/tests/auditLedger.test.js` | 🟢 PASS |
+| **Tenant Isolation (RLS)** | `server/tests/tenantIsolation.test.js` | 🟢 Passed defined tenant-isolation test cases |
+| **Anti-Self-Approval** | `server/tests/approvalIntegrity.test.js` | 🟢 Passed defined anti-self-approval and quorum test cases |
+| **Audit Ledger Hash Chaining**| `server/tests/auditLedger.test.js` | 🟢 Passed hash-chain integrity & tamper-detection test cases |
 
 ---
 
@@ -181,9 +181,9 @@ The platform includes automated tests verifying the following core guarantees:
 ```
 whitelabel/
 ├── README.md                          # Master Atlas & Flowchart Guide
-├── ARCHITECTURE.md                    # Deep-dive Security & Isolation Spec
+├── ARCHITECTURE.md                    # Multi-Tenant Isolation & Security Spec
 ├── COMMERCIAL_PACKAGES.md             # Packaging, Retainers & Disclaimers
-├── POSTGRES_SCHEMA.sql                # PostgreSQL Schema with Row-Level Security
+├── POSTGRES_SCHEMA.sql                # Proposed PostgreSQL Schema with RLS
 ├── SECURITY.md                        # Security Disclosure & Vulnerability Policy
 ├── CONTRIBUTING.md                    # Contribution Guidelines
 ├── LICENSE.md                         # Source-Available Commercial Evaluation License
@@ -192,7 +192,7 @@ whitelabel/
 ├── client/                            # Institutional Command Center Web App
 │   ├── index.html                     # 7-Screen Control Plane UI
 │   ├── styles.css                     # Institutional Dark Design System
-│   └── app.js                         # Dynamic Theming & E2E Deal Flow Simulator
+│   └── app.js                         # Dynamic Theming & API-Backed Deal Flow Simulator
 ├── server/                            # Backend Control Plane API
 │   ├── package.json
 │   ├── server.js                      # Express API with Tenant Middleware

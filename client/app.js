@@ -1,6 +1,8 @@
 // ==========================================================================
-// UNYKORN ENTERPRISE FABRIC - STATE & LOGIC ENGINE (HARDENED)
+// UNYKORN ENTERPRISE FABRIC - STATE & LOGIC ENGINE (API INTEGRATED)
 // ==========================================================================
+
+const API_BASE_URL = 'http://localhost:8905/api/v1';
 
 const ENVIRONMENTS = {
   demo: {
@@ -597,7 +599,7 @@ function executeQuorumApproval(intentId) {
   const idx = tenant.pendingApprovals.findIndex(a => a.id === intentId);
   if (idx !== -1) {
     const item = tenant.pendingApprovals[idx];
-    alert(`Success: Multi-Party Authorization Recorded for ${item.title}!\n\n• Policy Checked: Zero Breaches\n• Co-Signer Bound: Kevan Burns (Compliance Officer)\n• Handoff Routed to: BitGo MPC Custody Boundary (Sandbox)\n• Transaction Hash Generated: ${item.hash}`);
+    alert(`Success: Multi-Party Authorization Recorded for ${item.title}!\n\n• Policy Checked: Passed defined anti-self-approval test cases\n• Co-Signer Bound: Kevan Burns (Compliance Officer)\n• Handoff Routed to: BitGo MPC Custody Boundary (Sandbox)\n• Transaction Hash Generated: ${item.hash}`);
     tenant.pendingApprovals.splice(idx, 1);
     renderAllViews();
   }
@@ -654,7 +656,7 @@ function renderE2EStep() {
         <div>Facility Requested: <strong>$4,200,000 USD</strong> (First Lien Senior Debt)</div>
         <div>Evidence Record #1: <code>Appraisal_Savannah_2026.pdf</code> &rarr; SHA-256: <code>0x9182...bcea</code></div>
         <div>Evidence Record #2: <code>Drone_Inspection_Photogrammetry.bin</code> &rarr; SHA-256: <code>0x4e57...fa13</code></div>
-        <div class="text-emerald" style="margin-top:0.5rem;">&check; Evidence Vault Status: Merkle Leaf Attached & Immutable</div>
+        <div class="text-emerald" style="margin-top:0.5rem;">&check; Evidence Vault Status: Merkle Leaf Attached & Tamper-Evident</div>
       </div>
     `;
     footer.innerHTML = `
@@ -664,15 +666,15 @@ function renderE2EStep() {
   } else if (e2eCurrentStep === 3) {
     content.innerHTML = `
       <h4 style="color:var(--brand-primary); margin-bottom:0.5rem;">Step 3: Policy Engine Evaluation & Multi-Party Quorum</h4>
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Rule <code>draw-over-1m</code> requires 3 distinct party approvals: Project Architect + Title Agent + Lender Officer. Zero single-key execution allowed.</p>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Rule <code>draw-over-1m</code> requires 3 distinct party approvals: Project Architect + Title Agent + Lender Officer. Anti-self-approval rule strictly enforced.</p>
       
       <div style="background:rgba(0,0,0,0.3); padding:1rem; border-radius:var(--radius-md); font-family:var(--font-mono); font-size:0.8rem;">
         <div>Policy Evaluated: <code>POLICY_DRAW_RELEASE_OVER_1M</code></div>
-        <div>Required Quorum: <strong>3 of 3 Authorized Signers</strong></div>
+        <div>Required Quorum: <strong>3 of 3 Distinct Authorized Signers</strong></div>
         <div class="text-emerald">&check; 1/3 Architect Signature: Lead Supervising Engineer (Signed)</div>
         <div class="text-emerald">&check; 2/3 Title Escrow Signature: Title Guarantee Co. (Signed)</div>
         <div class="text-emerald">&check; 3/3 Lender Officer Signature: Kevan Burns (Signed)</div>
-        <div class="text-emerald" style="margin-top:0.5rem;">&check; Quorum Status: 100% UNANIMOUS CONSENSUS</div>
+        <div class="text-emerald" style="margin-top:0.5rem;">&check; Quorum Status: UNANIMOUS CONSENSUS</div>
       </div>
     `;
     footer.innerHTML = `
@@ -685,9 +687,9 @@ function renderE2EStep() {
       <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Transaction intent forwarded to BitGo Enterprise Sandbox. Merkle event hash $H_n = \\text{SHA256}(H_{n-1} \\parallel \\text{payload}_n)$ generated.</p>
       
       <div style="background:rgba(16,185,129,0.08); border:1px solid var(--accent-emerald); padding:1rem; border-radius:var(--radius-md); font-family:var(--font-mono); font-size:0.8rem;">
-        <div class="text-emerald" style="font-weight:700;">&check; EXECUTION COMPLETE // AUDIT PROOF ANCHORED</div>
+        <div class="text-emerald" style="font-weight:700;">&check; EXECUTION COMPLETE // AUDIT RECEIPT ANCHORED</div>
         <div style="margin-top:0.4rem;">Transaction Intent ID: <code>INTENT-9899-COMPLETED</code></div>
-        <div>Settlement Rail: <strong>FlashRouter &rarr; Polygon EVM Escrow</strong></div>
+        <div>Settlement Rail: <strong>FlashRouter &rarr; Polygon EVM Escrow (Sandbox)</strong></div>
         <div>BitGo MPC Request ID: <code>bitgo_req_9920192840918</code></div>
         <div>Previous Hash ($H_{n-1}$): <code>0x89abf7623c91e012...fa89</code></div>
         <div>Canonical Event Hash ($H_n$): <code>0x7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069</code></div>
@@ -822,12 +824,12 @@ function runCryptographicVerification() {
   res.innerHTML = `
     <div style="display:flex; align-items:center; gap:0.5rem; color:var(--accent-emerald); font-weight:700; margin-bottom:0.5rem;">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-      <span>VERIFICATION SUCCESSFUL: 100% CRYPTOGRAPHIC MATCH</span>
+      <span>VERIFICATION SUCCESSFUL: CANONICAL HASH MATCH</span>
     </div>
     <div style="font-size:0.8rem; color:var(--text-main); margin-bottom:0.5rem;">
       <div>Queried Hash: <code class="font-mono text-blue">${hash || '0x4E574939...Fa13'}</code></div>
-      <div>On-Chain Anchor: <strong>Polygon Mainnet Block 61,420,918</strong></div>
-      <div>Attesting Entity: <strong>UnyKorn LLC ISO MIC: UBEC & BitGo MPC Quorum</strong></div>
+      <div>On-Chain Anchor: <strong>Polygon Mainnet Block 61,420,918 (Proof Reference)</strong></div>
+      <div>Attesting Entity: <strong>UnyKorn LLC ISO MIC: UBEC & BitGo MPC Sandbox Quorum</strong></div>
       <div>Merkle Leaf Position: <strong>Leaf #4 (Proof Valid)</strong></div>
     </div>
   `;
@@ -847,8 +849,38 @@ function saveWhiteLabelConfig() {
   alert("Tenant White-Label Configuration Saved!\n\n• Custom Domain DNS CNAME instructions routed.\n• CSS Theme Tokens updated.\n• Commercial billing retainer active.");
 }
 
-function exportEnterpriseReport() {
-  alert("Exporting Institutional Executive Audit Package (PDF / JSON Merkle Proofs)...\n\nDownload Ready: UNYKORN_ENTERPRISE_AUDIT_AUG2026.pdf");
+async function exportEnterpriseReport() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/audit/export-proof-package`, {
+      headers: { 'x-tenant-id': 'tenant_blackwood' }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `UNYKORN_AUDIT_PACKAGE_${currentTenantKey.toUpperCase()}.json`;
+      a.click();
+      return;
+    }
+  } catch (err) {
+    console.log('Backend API offline, downloading fallback client audit package...');
+  }
+
+  // Fallback client package
+  const sampleData = {
+    specVersion: "1.0",
+    generatedAtUtc: new Date().toISOString(),
+    notice: "The platform generates tamper-evident operational records by hash-linking canonical event payloads and preserving associated evidence references. These records support internal integrity review and audit workflows. They do not independently establish legal validity, asset ownership, payment finality, custody, regulatory compliance, or the accuracy of submitted information.",
+    eventsCount: 3
+  };
+  const blob = new Blob([JSON.stringify(sampleData, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `UNYKORN_AUDIT_PACKAGE_${currentTenantKey.toUpperCase()}.json`;
+  a.click();
 }
 
 function triggerRailSync() {
