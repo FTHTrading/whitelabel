@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNYKORN ENTERPRISE FABRIC // White-Label Operating System & Neural Copilot</title>
+  <meta name="description" content="Deploy institutional white-label desks for private credit, real-world assets, digital securities, and custody-separated settlement powered by UnyKorn Neural Copilot.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+
+  <!-- TOP STATUS & CHAIN TELEMETRY TICKER -->
+  <div class="top-notice-bar">
+    <div class="top-notice-left">
+      <div class="pulse-dot"></div>
+      <strong>UNYKORN NEURAL FABRIC v3.8</strong>
+      <span style="color:var(--text-dim);">|</span>
+      <span>Total Monitored AUC: <strong class="text-neon">$4,820,000,000 USD</strong> across 155 On-Chain Assets</span>
+    </div>
+    <div class="top-notice-right">
+      <span class="chain-pill">Solana <strong style="color:var(--neon-emerald);" id="liveSolTps">2,842 TPS</strong></span>
+      <span class="chain-pill">Polygon <strong style="color:var(--neon-cyan);">Block 61.4M</strong></span>
+      <span class="chain-pill">XRPL <strong style="color:var(--neon-purple);">Ledger 89.1M</strong></span>
+      <span class="chain-pill">BitGo MPC <strong style="color:var(--neon-gold);">Sandbox Ready</strong></span>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <a href="#" class="nav-brand">
+      <div class="brand-logo-cube">U</div>
+      <div class="brand-text-block">
+        <span class="brand-title">UNYKORN // FABRIC</span>
+        <span class="brand-sub">WHITE-LABEL OS &bull; whitelabel.unykorn.ai</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#ecosystem" class="nav-link">Ecosystem</a></li>
+      <li><a href="#ai-guide" class="nav-link active">Neural Copilot</a></li>
+      <li><a href="#stacks" class="nav-link">White-Label Stacks</a></li>
+      <li><a href="#architecture" class="nav-link">4-Layer Architecture</a></li>
+      <li><a href="#terminal" class="nav-link">CLI Console</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="btn-glass" onclick="document.getElementById('aiChatInput').focus()">Ask Neural AI</button>
+      <a href="#stacks" class="btn-cyber">Configure Your Desk &rarr;</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="hero-section">
+    <div class="hero-pill-badge">
+      <span>⚡ WEB3 + AI OPERATING SUBSTRATE</span>
+      <span>&bull;</span>
+      <span>ISO MIC: UBEC &bull; EIN: 42-3536633</span>
+    </div>
+
+    <h1 class="hero-title">
+      The Institutional Operating Fabric for <br/>
+      <span class="gradient-text">On-Chain Assets, Private Credit & White-Label Desks</span>
+    </h1>
+
+    <p class="hero-description">
+      Unify fragmented platforms into a governed enterprise command center. Built with PostgreSQL forced Row-Level Security, multi-party anti-self-approval quorum policies, BitGo MPC custody separation, and native AI guidance.
+    </p>
+
+    <div class="hero-cta-group">
+      <a href="#ai-guide" class="btn-ai-glow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+        Launch UnyKorn Neural Copilot
+      </a>
+      <a href="#stacks" class="btn-cyber">Explore 6 Turnkey Stacks</a>
+      <a href="https://github.com/FTHTrading/whitelabel" target="_blank" class="btn-glass">GitHub Repository &rarr;</a>
+    </div>
+
+    <!-- KPI HUD METRICS -->
+    <div class="kpi-hud-grid">
+      <div class="kpi-hud-card">
+        <div class="kpi-label">TOTAL ASSETS UNDER CUSTODY</div>
+        <div class="kpi-val">$4.82B</div>
+        <div class="kpi-sub">&check; 155 Verified On-Chain Assets</div>
+      </div>
+      <div class="kpi-hud-card">
+        <div class="kpi-label">SOVEREIGN NAMESPACE ROOTS</div>
+        <div class="kpi-val">78 Genesis</div>
+        <div class="kpi-sub">&check; 60 Athlete Trust Funds + 8 CWS</div>
+      </div>
+      <div class="kpi-hud-card">
+        <div class="kpi-label">SETTLEMENT RAILS (FLASHROUTER)</div>
+        <div class="kpi-val">4 Multi-Rails</div>
+        <div class="kpi-sub">Solana &bull; Polygon &bull; XRPL &bull; Stellar</div>
+      </div>
+      <div class="kpi-hud-card">
+        <div class="kpi-label">CUSTODY INTEGRATION BOUNDARY</div>
+        <div class="kpi-val">BitGo MPC</div>
+        <div class="kpi-sub">Zero Customer Keys in Database</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE & AI COPILOT SECTION -->
+  <main class="workspace-container" id="ai-guide">
+
+    <!-- LEFT COLUMN: WHITE-LABEL STACK EXPLORER -->
+    <section class="glass-panel" id="stacks">
+      <div class="panel-header">
+        <div class="panel-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+          <span>White-Label Modular Stacks & Pricing</span>
+        </div>
+        <span class="badge info-badge" id="calcSelectedCount">1 Module Selected</span>
+      </div>
+
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+        Select the operating capabilities for your institutional portal. Each module includes Cloudflare custom hostname routing, isolated PostgreSQL RLS boundaries, and BitGo Sandbox integration.
+      </p>
+
+      <div class="stack-picker-grid">
+        <div class="stack-option-card" data-pkg-id="pkg_evidence" onclick="selectStackPackage('pkg_evidence')">
+          <div class="stack-tag">LEGAL-X &bull; EVIDENCE ENGINE</div>
+          <div class="stack-name">01. Evidence & Controls Desk</div>
+          <p style="font-size:0.75rem; color:var(--text-dim); margin-bottom:0.5rem;">Matter digital twins, court-admissible proofs & drone photogrammetry hashing.</p>
+          <div class="stack-price">$7,500 Setup &bull; $750/mo</div>
+        </div>
+
+        <div class="stack-option-card" data-pkg-id="pkg_legacy" onclick="selectStackPackage('pkg_legacy')">
+          <div class="stack-tag">LEGACY CHAIN &bull; WEALTH</div>
+          <div class="stack-name">02. Legacy Vault Portal</div>
+          <p style="font-size:0.75rem; color:var(--text-dim); margin-bottom:0.5rem;">Family office estate succession, encrypted records & 5-proof cryptographic preservation.</p>
+          <div class="stack-price">$5,000 Setup &bull; $499/mo</div>
+        </div>
+
+        <div class="stack-option-card selected" data-pkg-id="pkg_credit" onclick="selectStackPackage('pkg_credit')">
+          <div class="stack-tag">LDX CAPITAL &bull; FLASHROUTER</div>
+          <div class="stack-name">03. Private Credit Desk</div>
+          <p style="font-size:0.75rem; color:var(--text-dim); margin-bottom:0.5rem;">Commercial loan underwriting, construction draw milestones & 3-of-3 quorum approvals.</p>
+          <div class="stack-price">$17,500 Setup &bull; $1,499/mo</div>
+        </div>
+
+        <div class="stack-option-card" data-pkg-id="pkg_art" onclick="selectStackPackage('pkg_art')">
+          <div class="stack-tag">GLOBAL ART AUTHORITY &bull; RELICS</div>
+          <div class="stack-name">04. Provenance Vault & GAA</div>
+          <p style="font-size:0.75rem; color:var(--text-dim); margin-bottom:0.5rem;">Fine art depository binding, appraisal hash certificates & Lloyd's insurance attestations.</p>
+          <div class="stack-price">$10,000 Setup &bull; $850/mo</div>
+        </div>
+
+        <div class="stack-option-card" data-pkg-id="pkg_issuer" onclick="selectStackPackage('pkg_issuer')">
+          <div class="stack-tag">SMART CONTRACT BUILDER</div>
+          <div class="stack-name">05. Digital Asset Issuer OS</div>
+          <p style="font-size:0.75rem; color:var(--text-dim); margin-bottom:0.5rem;">ERC-3643 sovereign asset tokenization, Reg D 506(c) investor onboarding & mint gates.</p>
+          <div class="stack-price">$25,000 Setup &bull; $2,500/mo</div>
+        </div>
+
+        <div class="stack-option-card" data-pkg-id="pkg_sovereign" onclick="selectStackPackage('pkg_sovereign')">
+          <div class="stack-tag">FULL SUITE &bull; SOVEREIGN</div>
+          <div class="stack-name">06. Enterprise Fabric Core</div>
+          <p style="font-size:0.75rem; color:var(--text-dim); margin-bottom:0.5rem;">All 12+ institutional modules, dedicated database cluster & 24/7 engineering SLA.</p>
+          <div class="stack-price">$65,000+ Setup &bull; $4,999+/mo</div>
+        </div>
+      </div>
+
+      <!-- LIVE ESTIMATE DISPLAY -->
+      <div style="background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius-md); padding:1.25rem; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-size:0.72rem; font-family:var(--font-mono); color:var(--text-dim);">ESTIMATED UPFRONT SETUP</div>
+          <div style="font-size:1.6rem; font-weight:800; color:var(--neon-cyan);" id="calcSetupTotal">$17,500</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:0.72rem; font-family:var(--font-mono); color:var(--text-dim);">MONTHLY RETAINER & SUPPORT</div>
+          <div style="font-size:1.6rem; font-weight:800; color:var(--neon-gold);" id="calcMonthlyTotal">$1,499 / mo</div>
+        </div>
+        <button class="btn-cyber" onclick="alert('White-Label Retainer Reserved!\n\nRouting custom domain CNAME DNS parameters for whitelabel.unykorn.ai.')">Deploy Stack &rarr;</button>
+      </div>
+
+      <!-- INTERACTIVE TERMINAL WINDOW -->
+      <div class="terminal-window" id="terminal">
+        <div class="terminal-top-bar">
+          <div class="t-dot t-red"></div>
+          <div class="t-dot t-yellow"></div>
+          <div class="t-dot t-green"></div>
+          <span style="font-size:0.72rem; color:var(--text-dim); margin-left:0.5rem;">unykorn-cli // v3.8.0-fabric</span>
+          <div style="margin-left:auto; display:flex; gap:0.5rem;">
+            <button class="prompt-pill-btn" onclick="runTerminalCommand('status')">unykorn status</button>
+            <button class="prompt-pill-btn" onclick="runTerminalCommand('rls')">unykorn rls</button>
+            <button class="prompt-pill-btn" onclick="runTerminalCommand('rails')">unykorn rails</button>
+            <button class="prompt-pill-btn" onclick="runTerminalCommand('audit')">unykorn audit</button>
+          </div>
+        </div>
+        <div class="terminal-body" id="terminalOutput">
+[SYSTEM BOOT] UnyKorn Enterprise Fabric Kernel Loaded.
+Connected to PostgreSQL forced RLS database cluster.
+BitGo MPC Sandbox Boundary: Ready. FlashRouter Multi-Rail: Synced.
+Type or click commands above to inspect live system proofs.
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN: UNYKORN NEURAL COPILOT (AI GUIDE) -->
+    <aside class="glass-panel ai-copilot-card">
+      <div class="ai-chat-header">
+        <div class="ai-avatar-badge">
+          <div class="ai-orb"></div>
+          <div>
+            <div style="font-weight:700; font-size:0.98rem; font-family:var(--font-sans);">UnyKorn Neural Copilot</div>
+            <div style="font-size:0.7rem; color:var(--neon-emerald); font-family:var(--font-mono);">Online &bull; Full Ecosystem Context</div>
+          </div>
+        </div>
+        <span class="badge success-badge">AI ORACLE v3.8</span>
+      </div>
+
+      <!-- CHAT MESSAGE LOG -->
+      <div class="ai-chat-messages" id="aiChatMessages">
+        <div class="chat-bubble ai">
+          <strong>Welcome to UnyKorn Enterprise Fabric!</strong><br/>
+          I am your institutional Web3 + AI operating copilot. I am fully familiar with our entire ecosystem, including:
+          <ul style="margin:0.4rem 0 0.4rem 1.2rem; font-size:0.8rem; color:var(--text-muted);">
+            <li><strong>$4.82B Total AUC</strong> & 155 verified on-chain assets</li>
+            <li><strong>UnyKorn LLC</strong> (Wyoming LLC filed July 1, 2026 | EIN 42-3536633 | ISO MIC: UBEC)</li>
+            <li><strong>LDX Capital, Legal-X, FlashRouter, Relics & GAA</strong></li>
+            <li><strong>BitGo MPC Custody Boundary & 4-Layer Architecture</strong></li>
+          </ul>
+          How can I assist you with deploying or evaluating your white-label platform today?
+        </div>
+      </div>
+
+      <!-- SUGGESTED PROMPT PILLS -->
+      <div class="ai-prompt-pills">
+        <button class="prompt-pill-btn" onclick="sendUserPrompt('Explain the $4.82B Asset Portfolio & Namespace Roots')">📊 $4.82B AUC Portfolio</button>
+        <button class="prompt-pill-btn" onclick="sendUserPrompt('How does the LDX Capital Private Credit Desk work?')">💳 LDX Credit Desk</button>
+        <button class="prompt-pill-btn" onclick="sendUserPrompt('Calculate pricing for an Institutional Issuer White-Label')">💰 Pricing & Retainers</button>
+        <button class="prompt-pill-btn" onclick="sendUserPrompt('Show the 4-Layer Execution & BitGo MPC Boundary')">🛡️ 4-Layer Architecture</button>
+        <button class="prompt-pill-btn" onclick="sendUserPrompt('What are Legal-X Matter Twins and SHA-256 evidence vaults?')">⚖️ Legal-X Evidence</button>
+      </div>
+
+      <!-- CHAT INPUT ROW -->
+      <div class="ai-chat-input-row">
+        <input type="text" id="aiChatInput" class="chat-input" placeholder="Ask anything about our stack, AUC, or white-label packages..." onkeydown="if(event.key==='Enter') sendUserPrompt()">
+        <button class="btn-cyber" style="padding:0.7rem 1.2rem;" onclick="sendUserPrompt()">Send</button>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- 4-LAYER INSTITUTIONAL ARCHITECTURE SECTION -->
+  <section class="glass-panel" style="max-width:1400px; margin:0 auto 5rem; padding:3rem;" id="architecture">
+    <div style="text-align:center; max-width:800px; margin:0 auto 3rem;">
+      <h2 style="font-family:var(--font-sans); font-size:2.4rem; font-weight:800; margin-bottom:0.75rem;">The 4-Layer Institutional Operating Architecture</h2>
+      <p style="color:var(--text-muted); font-size:1.05rem;">How UnyKorn converts fragmented Web3 tools into an institutional sovereign operating fabric.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1.5rem;">
+      <div class="kpi-hud-card">
+        <div class="kpi-label" style="color:var(--neon-cyan);">LAYER 01</div>
+        <div style="font-weight:700; font-size:1.15rem; margin-bottom:0.5rem;">Enterprise Experience</div>
+        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">Branded client command centers hosted at <code>*.clientname.com</code> and <code>whitelabel.unykorn.ai</code> with custom theming.</p>
+      </div>
+
+      <div class="kpi-hud-card">
+        <div class="kpi-label" style="color:var(--neon-purple);">LAYER 02</div>
+        <div style="font-weight:700; font-size:1.15rem; margin-bottom:0.5rem;">Governance & Credentials</div>
+        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">OIDC identities, time-bound signing limits, and 3-of-3 quorum with anti-self-approval enforcement.</p>
+      </div>
+
+      <div class="kpi-hud-card">
+        <div class="kpi-label" style="color:var(--neon-emerald);">LAYER 03</div>
+        <div style="font-weight:700; font-size:1.15rem; margin-bottom:0.5rem;">Operational Workflows</div>
+        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">LDX private credit deal rooms, Legal-X matter digital twins, and SHA-256 evidence hashing.</p>
+      </div>
+
+      <div class="kpi-hud-card">
+        <div class="kpi-label" style="color:var(--neon-gold);">LAYER 04</div>
+        <div style="font-weight:700; font-size:1.15rem; margin-bottom:0.5rem;">Execution & Custody</div>
+        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">Zero platform keys. Atomic transaction outbox dispatch to BitGo MPC and FlashRouter multi-rails ($H_n$).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="brand-title" style="font-size:1.4rem; margin-bottom:0.5rem;">UNYKORN // ENTERPRISE FABRIC</div>
+        <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.6; max-width:380px;">
+          Institutional multi-tenant operating platform for private credit, sovereign real-world assets, and digital securities infrastructure.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="font-family:var(--font-sans); font-size:0.9rem; margin-bottom:1rem; color:#FFF;">Operating Surfaces</h4>
+        <ul style="list-style:none; font-size:0.82rem; line-height:2; color:var(--text-muted);">
+          <li><a href="https://ldx.unykorn.ai" target="_blank" style="color:var(--text-muted); text-decoration:none;">LDX Capital (Credit)</a></li>
+          <li><a href="https://app.legacychain.app" target="_blank" style="color:var(--text-muted); text-decoration:none;">Legal-X (Matter Twins)</a></li>
+          <li><a href="https://art.unykorn.ai" target="_blank" style="color:var(--text-muted); text-decoration:none;">Global Art Authority</a></li>
+          <li><a href="https://smartcontract.unykorn.ai" target="_blank" style="color:var(--text-muted); text-decoration:none;">Smart Contract Studio</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-family:var(--font-sans); font-size:0.9rem; margin-bottom:1rem; color:#FFF;">Infrastructure</h4>
+        <ul style="list-style:none; font-size:0.82rem; line-height:2; color:var(--text-muted);">
+          <li><a href="https://list.unykorn.ai" target="_blank" style="color:var(--text-muted); text-decoration:none;">Live Asset Registry</a></li>
+          <li><a href="https://github.com/FTHTrading/whitelabel" target="_blank" style="color:var(--text-muted); text-decoration:none;">GitHub Codebase</a></li>
+          <li><a href="https://github.com/FTHTrading/flashrouter" target="_blank" style="color:var(--text-muted); text-decoration:none;">FlashRouter Multi-Rail</a></li>
+          <li><a href="https://brokerdealer.unykorn.org" target="_blank" style="color:var(--text-muted); text-decoration:none;">BrokerDealer OS</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-family:var(--font-sans); font-size:0.9rem; margin-bottom:1rem; color:#FFF;">Corporate Identity</h4>
+        <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.6;">
+          <div>Entity: <strong>UnyKorn LLC</strong></div>
+          <div>State: <strong>Wyoming LLC (July 1, 2026)</strong></div>
+          <div>EIN: <code>42-3536633</code></div>
+          <div>ISO MIC: <code>UBEC</code></div>
+          <div>Contact: <code>licensing@unykorn.ai</code></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-legal-notice">
+      <p>
+        <strong>Legal & Regulatory Disclosure</strong>: UnyKorn Enterprise Fabric is an institutional software workflow and white-label operating system developed by UnyKorn LLC and FTH Trading. UnyKorn LLC provides technical software infrastructure and does not independently hold customer private keys, conduct broker-dealer activities, provide investment advice, or offer banking services. All custodial signing is executed through qualified partners including BitGo Trust Company.
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
