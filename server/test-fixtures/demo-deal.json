@@ -1,0 +1,11 @@
+{
+  "dealId": "deal_savannah_07",
+  "tenantId": "tenant_blackwood_01",
+  "organizationId": "org_blackwood_01",
+  "dealCode": "DEAL-LDX-99",
+  "title": "Savannah Logistics Corridor Construction Draw #7",
+  "dealType": "construction_draw",
+  "facilityAmountUsd": "4200000.00",
+  "workflowStage": "quorum_approval",
+  "evidenceRecordIds": ["ev_appraisal_01", "ev_drone_01"]
+}

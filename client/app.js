@@ -852,35 +852,50 @@ function saveWhiteLabelConfig() {
 async function exportEnterpriseReport() {
   try {
     const res = await fetch(`${API_BASE_URL}/audit/export-proof-package`, {
-      headers: { 'x-tenant-id': 'tenant_blackwood' }
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer user_valid_signer',
+        'x-tenant-id': 'tenant_blackwood_01'
+      },
+      body: JSON.stringify({
+        resourceType: 'deal',
+        resourceId: 'deal_savannah_07'
+      })
     });
+
     if (res.ok) {
       const data = await res.json();
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `UNYKORN_AUDIT_PACKAGE_${currentTenantKey.toUpperCase()}.json`;
+      a.download = `SERVER_AUDIT_PACKAGE_${currentTenantKey.toUpperCase()}.json`;
       a.click();
+      alert(`Server-Generated Sandbox Proof Package Downloaded!\n\n• Export Event ID: ${data.exportEventId}\n• Ledger Verification: ${data.verification.ledgerVerification}\n• Environment: ${data.environment.toUpperCase()}`);
       return;
     }
   } catch (err) {
-    console.log('Backend API offline, downloading fallback client audit package...');
+    console.log('Backend API offline, serving distinct offline demonstration output...');
   }
 
-  // Fallback client package
-  const sampleData = {
-    specVersion: "1.0",
-    generatedAtUtc: new Date().toISOString(),
-    notice: "The platform generates tamper-evident operational records by hash-linking canonical event payloads and preserving associated evidence references. These records support internal integrity review and audit workflows. They do not independently establish legal validity, asset ownership, payment finality, custody, regulatory compliance, or the accuracy of submitted information.",
+  // DISTINCT OFFLINE DEMONSTRATION FALLBACK (Visibly distinct and non-authoritative)
+  const offlineData = {
+    outputType: "OFFLINE_DEMONSTRATION_RECEIPT",
+    isServerVerified: false,
+    serverPackageId: null,
+    environment: "demo_fallback",
+    label: "Offline Demonstration Receipt — Not Server Verified",
+    disclaimer: "OFFLINE DEMONSTRATION OUTPUT. Generated in browser using synthetic fixtures. Not server generated, not tenant-authorized, not ledger verified, and not suitable for operational, legal, custody, regulatory, or financial reliance.",
     eventsCount: 3
   };
-  const blob = new Blob([JSON.stringify(sampleData, null, 2)], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify(offlineData, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `UNYKORN_AUDIT_PACKAGE_${currentTenantKey.toUpperCase()}.json`;
+  a.download = `OFFLINE_DEMO_RECEIPT_${currentTenantKey.toUpperCase()}.json`;
   a.click();
+  alert("Notice: Server unreachable. Downloaded [Offline Demonstration Receipt — Not Server Verified].");
 }
 
 function triggerRailSync() {

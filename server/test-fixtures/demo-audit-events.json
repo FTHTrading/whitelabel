@@ -1,0 +1,49 @@
+[
+  {
+    "eventId": "evt_1040",
+    "tenantId": "tenant_blackwood_01",
+    "actorId": "user_kevan_burns",
+    "eventType": "deal_room_initialized",
+    "workflowId": "deal_savannah_07",
+    "canonicalPayload": {
+      "dealCode": "DEAL-LDX-99",
+      "facilityAmountUsd": "4200000.00"
+    },
+    "previousEventHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "eventHash": "e4ca3009e6554c6bd6fae6f9a1a5e82257e899c0b27a516905c59a7dffae6be8",
+    "timestamp": "2026-08-29T05:18:44.000Z"
+  },
+  {
+    "eventId": "evt_1041",
+    "tenantId": "tenant_blackwood_01",
+    "actorId": "user_architect_smith",
+    "eventType": "evidence_attached",
+    "workflowId": "deal_savannah_07",
+    "canonicalPayload": {
+      "evidenceRecordId": "ev_drone_01",
+      "sha256": "4e574939d460d284b5d990646d4aeaef2d49fa1302830192839102938102938"
+    },
+    "previousEventHash": "e4ca3009e6554c6bd6fae6f9a1a5e82257e899c0b27a516905c59a7dffae6be8",
+    "eventHash": "d8d7c0207851ed9826f951b30ae32e01d3b744fc71cd59ff935116dec5e97c6c",
+    "timestamp": "2026-08-29T06:42:10.000Z"
+  },
+  {
+    "eventId": "evt_1042",
+    "tenantId": "tenant_blackwood_01",
+    "actorId": "system_quorum_engine",
+    "eventType": "approval_quorum_completed",
+    "workflowId": "deal_savannah_07",
+    "canonicalPayload": {
+      "intentId": "INTENT-9814",
+      "quorumCount": 3,
+      "signers": [
+        "user_architect_smith",
+        "user_title_davis",
+        "user_kevan_burns"
+      ]
+    },
+    "previousEventHash": "d8d7c0207851ed9826f951b30ae32e01d3b744fc71cd59ff935116dec5e97c6c",
+    "eventHash": "a6bd1bc262220f1c4424fc1013a6c8f04ac69c74aebe45a9abe1aca0f8fc1916",
+    "timestamp": "2026-08-29T07:15:22.000Z"
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "policyId": "policy_draw_over_1m",
+  "policyCode": "POLICY_DRAW_RELEASE_OVER_1M",
+  "tenantId": "tenant_blackwood_01",
+  "version": 1,
+  "eventType": "construction_draw",
+  "conditions": {
+    "minimumUsdValue": 1000000.00,
+    "facilityType": "construction_senior_debt"
+  },
+  "requirements": {
+    "requiredRoles": [
+      "architect_reviewer",
+      "title_escrow_agent",
+      "lender_officer"
+    ],
+    "minimumDistinctSigners": 3,
+    "prohibitSelfApproval": true,
+    "requireCustodyPartnerIntent": true
+  }
+}

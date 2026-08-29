@@ -1,0 +1,13 @@
+{
+  "tenantId": "tenant_blackwood_01",
+  "slug": "blackwood",
+  "displayName": "Blackwood Capital & Debt Fund LLC",
+  "environment": "sandbox",
+  "primaryDomain": "deals.blackwoodcap.com",
+  "planTier": "private_credit_desk",
+  "brandConfig": {
+    "primaryColor": "#06B6D4",
+    "accentColor": "#10B981",
+    "theme": "dark-institutional"
+  }
+}

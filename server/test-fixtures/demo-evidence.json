@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ev_appraisal_01",
+    "tenantId": "tenant_blackwood_01",
+    "fileName": "Appraisal_Savannah_Tranche_2026.pdf",
+    "mimeType": "application/pdf",
+    "fileSizeBytes": 2458190,
+    "sha256Hash": "91823901bcefa78129038afbc912308123980123456789abcdef0123456789a",
+    "storageUri": "s3://unykorn-vault-blackwood/evidence/appraisals/ev_appraisal_01.pdf"
+  },
+  {
+    "id": "ev_drone_01",
+    "tenantId": "tenant_blackwood_01",
+    "fileName": "Drone_Milestone_Steel_Inspection.bin",
+    "mimeType": "application/octet-stream",
+    "fileSizeBytes": 15920384,
+    "sha256Hash": "4e574939d460d284b5d990646d4aeaef2d49fa1302830192839102938102938",
+    "storageUri": "s3://unykorn-vault-blackwood/evidence/photogrammetry/ev_drone_01.bin"
+  }
+]
