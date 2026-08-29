@@ -1,7 +1,33 @@
+# Dependency Directories
 node_modules/
-.env
-.env.local
-*.log
-.DS_Store
 dist/
+build/
 coverage/
+.next/
+.vercel/
+
+# Environment and Secret Files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+secrets/
+credentials/
+private/
+wallets/
+keystores/
+
+# Databases and Local Storage
+*.sqlite
+*.sqlite3
+*.db
+*.log
+
+# System and OS Files
+.DS_Store
+Thumbs.db

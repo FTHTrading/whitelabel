@@ -1,0 +1,36 @@
+name: UnyKorn Enterprise Fabric CI & Security Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-and-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Secret Scan (Grep Pattern Verification)
+      run: |
+        echo "Running repository secret pattern scan..."
+        ! git grep -n -i -E "sk_live_|sk_test_|BEGIN .*PRIVATE KEY|postgres://.*:.*@" . || (echo "Potential secret detected in codebase!" && exit 1)
+        echo "Zero exposed secret patterns detected."
+
+    - name: Install Dependencies
+      run: |
+        cd server
+        npm install
+
+    - name: Run Automated Security & Isolation Tests
+      run: |
+        cd server
+        npm test

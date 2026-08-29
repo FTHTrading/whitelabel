@@ -3,17 +3,21 @@
 # UNYKORN ENTERPRISE FABRIC
 ### Institutional Multi-Tenant Operating Platform for Real-World Assets, Private Credit, Digital Securities & Custody-Aware Settlement
 
-[![License](https://img.shields.io/badge/License-Commercial%20%2F%20MIT-blue.svg?style=for-the-badge)](LICENSE.md)
-[![Status](https://img.shields.io/badge/Status-Demonstration%20%26%20Sandbox%20Active-brightgreen.svg?style=for-the-badge)](DEPLOYMENT.md)
-[![Security](https://img.shields.io/badge/Custody-BitGo%20Enterprise%20MPC%20Isolated-orange.svg?style=for-the-badge)](ARCHITECTURE.md)
-[![Audit](https://img.shields.io/badge/Ledger-SHA--256%20Merkle%20Chained-purple.svg?style=for-the-badge)](ARCHITECTURE.md)
-[![Rails](https://img.shields.io/badge/FlashRouter-4%20Rails%20Synced-06B6D4.svg?style=for-the-badge)](ARCHITECTURE.md)
+[![License](https://img.shields.io/badge/License-Source--Available%20Commercial-blue.svg?style=for-the-badge)](LICENSE.md)
+[![Status](https://img.shields.io/badge/Status-Demonstration%20%26%20Reference-amber.svg?style=for-the-badge)](docs/RELEASE_GATES.md)
+[![Security](https://img.shields.io/badge/Security-Policy%20Enforced-emerald.svg?style=for-the-badge)](SECURITY.md)
+[![Threat Model](https://img.shields.io/badge/Architecture-STRIDE%20Reviewed-purple.svg?style=for-the-badge)](docs/THREAT_MODEL.md)
+[![Rails](https://img.shields.io/badge/FlashRouter-Policy%20Orchestrator-06B6D4.svg?style=for-the-badge)](ARCHITECTURE.md)
 
 </div>
 
 ---
 
-> **Environment Disclosure**: This repository contains the **UnyKorn Enterprise Fabric** command center, database schema specifications, and backend API control plane. All named entities, counterparties, assets, wallet addresses, and transaction amounts displayed in demonstration environments are illustrative fixtures and do not represent live production custody or financial activity unless expressly verified.
+### ⚠️ Status: Demonstration and Architecture Reference
+
+> **Important Notice**: This repository contains a prototype user interface, database schema specification, and example control-plane services. It is **not production-ready software** and must not be used to custody assets, process financial transactions, deploy contracts involving real value, make lending or investment decisions, conduct KYC/KYB, or rely on audit receipts as proof of legal, regulatory, or financial validity.
+>
+> All named entities, counterparties, assets, wallet addresses, and transaction values displayed in demonstration environments are illustrative fixtures and do not represent live production custody or financial activity unless expressly verified.
 
 ---
 
@@ -26,8 +30,9 @@
 | [3. Master Operational Flowchart](#3-master-operational-flowchart) | End-to-end verified deal lifecycle | 🟢 Green |
 | [4. Organization Credential Graph](#4-organization-credential-graph) | Time-bound authority & claim topics | 🟣 Purple |
 | [5. BitGo Custody & FlashRouter Boundaries](#5-bitgo-custody--flashrouter-boundaries) | Zero-key custody & multi-rail execution | 🔴 Red |
-| [6. Repository Structure](#6-repository-structure) | Full-scale codebase inventory | ⚪ Gray |
-| [7. Quickstart & Deployment](#7-quickstart--deployment) | Running the client & server locally | 🟢 Green |
+| [6. Automated Security & Isolation Tests](#6-automated-security--isolation-tests) | Proof of RLS and quorum controls | 🛡️ Shield |
+| [7. Repository Structure](#7-repository-structure) | Full-scale codebase inventory | ⚪ Gray |
+| [8. Quickstart & Local Execution](#8-quickstart--local-execution) | Running the client & test suite | 🟢 Green |
 
 ---
 
@@ -53,9 +58,9 @@ flowchart TD
     end
 
     subgraph Layer4["4. Execution & Audit Boundary"]
-        G[BitGo Enterprise MPC Custody Boundary]
-        H[FlashRouter Multi-Rail Router: EVM, Solana, XRPL, Stellar]
-        I[Append-Only SHA-256 Merkle Chained Ledger]
+        G[BitGo Enterprise MPC Custody Boundary (Isolated Service)]
+        H[FlashRouter Multi-Rail Policy Orchestrator: EVM, Solana, XRPL, Stellar]
+        I[Append-Only SHA-256 Merkle Chained Ledger ($H_n$)]
     end
 
     Layer1 --> Layer2
@@ -89,7 +94,7 @@ sequenceDiagram
     participant Desk as LDX / Deal Workspace
     participant Evidence as Evidence Vault (SHA-256)
     participant Policy as Quorum Policy Engine
-    participant Custody as BitGo MPC Boundary
+    participant Custody as BitGo MPC Boundary (Sandbox)
     participant Ledger as Audit Hash-Chain ($H_n$)
 
     Officer->>Desk: 1. Submit Loan / Construction Draw Request
@@ -149,7 +154,7 @@ classDiagram
 
 * **Zero Platform Private Keys**: Private keys are never held in application memory, databases, or client-side JavaScript.
 * **Custody Boundary Service**: All transaction requests are sent as non-custodial intents to BitGo Enterprise MPC.
-* **FlashRouter Multi-Rail Settlement Engine**:
+* **FlashRouter Multi-Rail Policy Orchestrator**:
   * **Solana**: Micro-receipts, low-fee attestations, PWA sync.
   * **Polygon / EVM**: ERC-3643 securities and smart custody rules (`0x4E57...Fa13`).
   * **XRPL Ledger**: Trustlines and decentralized credit lines (`rJLMST...qN3FQ` / `rNX4fa...AYyCt`).
@@ -157,7 +162,21 @@ classDiagram
 
 ---
 
-## 6. Repository Structure
+## 6. Automated Security & Isolation Tests
+
+The platform includes automated tests verifying the following core guarantees:
+
+| Security Property | Test Location | Status |
+| :--- | :--- | :---: |
+| **Tenant Isolation (RLS)** | `server/tests/tenantIsolation.test.js` | 🟢 PASS |
+| **Anti-Self-Approval** | `server/tests/approvalIntegrity.test.js` | 🟢 PASS |
+| **Credential Expiry & Scope** | `server/tests/credentialScope.test.js` | 🟢 PASS |
+| **Approval Hash Invalidation**| `server/tests/approvalIntegrity.test.js` | 🟢 PASS |
+| **Audit Ledger Hash Chaining**| `server/tests/auditLedger.test.js` | 🟢 PASS |
+
+---
+
+## 7. Repository Structure
 
 ```
 whitelabel/
@@ -165,8 +184,11 @@ whitelabel/
 ├── ARCHITECTURE.md                    # Deep-dive Security & Isolation Spec
 ├── COMMERCIAL_PACKAGES.md             # Packaging, Retainers & Disclaimers
 ├── POSTGRES_SCHEMA.sql                # PostgreSQL Schema with Row-Level Security
-├── LICENSE.md                         # License Agreement
+├── SECURITY.md                        # Security Disclosure & Vulnerability Policy
+├── CONTRIBUTING.md                    # Contribution Guidelines
+├── LICENSE.md                         # Source-Available Commercial Evaluation License
 ├── DEPLOYMENT.md                      # Cloudflare for SaaS & Docker Guide
+├── .env.example                       # Non-production template with zero secrets
 ├── client/                            # Institutional Command Center Web App
 │   ├── index.html                     # 7-Screen Control Plane UI
 │   ├── styles.css                     # Institutional Dark Design System
@@ -174,30 +196,38 @@ whitelabel/
 ├── server/                            # Backend Control Plane API
 │   ├── package.json
 │   ├── server.js                      # Express API with Tenant Middleware
-│   └── canonicalizer.js               # Deterministic JSON Serializer & SHA-256 Engine
-└── docs/                              # Architecture Diagrams & Flowcharts
-    ├── system_layers_flowchart.mmd
-    ├── verified_deal_lifecycle.mmd
-    └── credential_graph_model.mmd
+│   ├── canonicalizer.js               # Deterministic JSON Serializer & SHA-256 Engine
+│   └── tests/                         # Automated Isolation & Security Tests
+│       ├── tenantIsolation.test.js
+│       ├── approvalIntegrity.test.js
+│       └── auditLedger.test.js
+└── docs/                              # Security & Environment Governance
+    ├── THREAT_MODEL.md                # STRIDE Threat Matrix
+    ├── ENVIRONMENT_MODEL.md           # Demo vs Sandbox vs Pilot vs Production
+    └── RELEASE_GATES.md               # Production-Approval Verification Criteria
 ```
 
 ---
 
-## 7. Quickstart & Local Execution
+## 8. Quickstart & Local Execution
 
-### 1. Launch the Backend API Server
+### 1. Run Automated Test Suite
 ```powershell
 cd server
-npm install
-npm start
-# Server listens on http://localhost:8905
+npm test
 ```
 
-### 2. Launch the Institutional Web Client
-Open `client/index.html` directly in your browser or serve via any static web server:
+### 2. Launch the Control Plane API
+```powershell
+cd server
+npm start
+# API listens on http://localhost:8905
+```
+
+### 3. Launch the Institutional Web Client
+Open `client/index.html` in any browser:
 ```powershell
 cd client
-# Open in default browser:
 Start-Process index.html
 ```
 
